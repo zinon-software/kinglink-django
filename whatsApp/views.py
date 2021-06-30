@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from .models import *
 
+from django.http import JsonResponse
+import json
+
+
 # Create your views here.
 
 def all_group(request):
@@ -22,4 +26,4 @@ def update_group(request):
         
     except:
         pass
-    return JsonResponse(f'تمت الموافقة على الطلب رقم ..  {groupId}', safe=False)
+    return JsonResponse('', safe=False)
