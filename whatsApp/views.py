@@ -14,10 +14,10 @@ def update_group(request):
     action = request.POST.get("action")
     try:
         group, created = Groub.objects.get_or_create(id=groupId, activation=False)
-        if group == 'SE': # الموافقة على الطلب
+        if action == 'SE': # الموافقة على الطلب
             group.activation = True
             group.save()
-        elif group == 'DE': # تم التوصيل
+        elif action == 'DE': # تم التوصيل
             group.delete()
         
     except:

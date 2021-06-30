@@ -59,7 +59,7 @@
           $(".update-group").on("click", function(){
               var groupId = this.dataset.group
               var action = this.dataset.action;
-              console.log('orderId', groupId)
+              console.log('groupId', groupId)
               $.ajax({
                   method:"POST",
                   url: "{% url 'update_group' %}",
