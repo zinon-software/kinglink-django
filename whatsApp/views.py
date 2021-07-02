@@ -21,7 +21,7 @@ def update_group(request):
         if action == 'SE': # الموافقة على الطلب
             group.activation = True
             group.save()
-        elif action == 'DE': # تم التوصيل
+        elif action == 'DE': # الحذف 
             group.delete()
         
     except:
