@@ -51,7 +51,7 @@ User = get_user_model()
 class Comment(models.Model):
     sender = models.ForeignKey(User, null=True, blank=True, related_name='sent_comment', on_delete=models.CASCADE)
     group = models.ForeignKey(Groub, null=True, blank=True, related_name='post_group', on_delete=models.CASCADE)
-    message = models.TextField()
+    message = models.TextField(null=True, blank=True,)
     created_dt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
