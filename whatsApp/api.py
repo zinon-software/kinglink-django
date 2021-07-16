@@ -8,7 +8,7 @@ from rest_framework import generics
 
 
 class GroubApi(generics.ListCreateAPIView):
-    queryset = Groub.objects.order_by('-id')
+    queryset = Groub.objects.filter(activation=True).order_by('-id')
     serializer_class = GroubSerializers
 
 class GroubDetailApi(generics.RetrieveUpdateDestroyAPIView):
