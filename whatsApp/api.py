@@ -15,3 +15,13 @@ class GroubDetailApi(generics.RetrieveUpdateDestroyAPIView):
     queryset = Groub.objects.all()
     serializer_class = GroubSerializers
     lookup_field = 'id'
+
+
+class CommentApi(generics.ListCreateAPIView):
+    queryset = Comment.objects.order_by('-id')
+    serializer_class = CommentSerializers
+
+class CommentDetailApi(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializers
+    lookup_field = 'id'

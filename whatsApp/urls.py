@@ -10,4 +10,7 @@ urlpatterns = [
 
     path('api/Groub', api.GroubApi.as_view(), name='GroubApi'),
     path('api/Groub/<int:id>', api.GroubDetailApi.as_view(), name='GroubDetailApi'),
+    
+    path('api/Comment', api.CommentApi.as_view(), name='CommentApi'),
+    path('api/Comment/<int:id>', api.CommentDetailApi.as_view(), name='CommentDetailApi'),
 ]

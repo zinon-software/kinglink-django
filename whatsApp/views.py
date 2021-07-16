@@ -17,7 +17,7 @@ def update_group(request):
     groupId = request.POST.get('groupId')
     action = request.POST.get("action")
     try:
-        group, created = Groub.objects.get_or_create(id=groupId, activation=False)
+        group, created = Groub.objects.get_or_create(id=groupId)
         if action == 'SE': # الموافقة على الطلب
             group.activation = True
             group.save()
