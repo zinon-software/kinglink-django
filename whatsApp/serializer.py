@@ -8,6 +8,7 @@ class GroubSerializers(serializers.ModelSerializer):
     class Meta:
         model = Groub
         fields = '__all__'
+        depth = 1
 
 class CommentSerializers(serializers.ModelSerializer):
     class Meta:
