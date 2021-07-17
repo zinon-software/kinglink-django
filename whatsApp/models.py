@@ -40,10 +40,10 @@ class Groub(models.Model):
     link = models.CharField(max_length=255)
     activation = models.BooleanField(default=False, null=True, blank=True)
     created_dt = models.DateTimeField(auto_now_add=True)
-    # category = models.CharField(max_length=2, choices=CATEGORY, default='1', null=True, blank=True)
-    # sections = models.CharField(max_length=2, choices=SECTIONS, default='1', null=True, blank=True)
-    category = models.ForeignKey(Category, null=True, blank=True, related_name='Category_name', on_delete=models.CASCADE)
-    sections = models.ForeignKey(Sections, null=True, blank=True, related_name='Sections_name', on_delete=models.CASCADE)
+    category = models.CharField(max_length=2, choices=CATEGORY, default='1', null=True, blank=True)
+    sections = models.CharField(max_length=2, choices=SECTIONS, default='1', null=True, blank=True)
+    # category = models.ForeignKey(Category, null=True, blank=True, related_name='Category_name', on_delete=models.CASCADE)
+    # sections = models.ForeignKey(Sections, null=True, blank=True, related_name='Sections_name', on_delete=models.CASCADE)
 
     views = models.IntegerField(default=0, null=True, blank=True)
 
