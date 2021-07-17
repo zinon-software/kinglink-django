@@ -27,7 +27,7 @@ class CommentDetailApi(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
 class ReportApi(generics.ListCreateAPIView):
-    queryset = Report.objects.all()
+    queryset = Report.objects.order_by('-id')
     serializer_class = ReportSerializers
 
 class ReportDetailApi(generics.RetrieveUpdateDestroyAPIView):
@@ -38,7 +38,7 @@ class ReportDetailApi(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CategoryApi(generics.ListCreateAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.order_by('-id')
     serializer_class = CategorySerializers
 
 class CategoryDetailApi(generics.RetrieveUpdateDestroyAPIView):
@@ -47,7 +47,7 @@ class CategoryDetailApi(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
 class SectionsApi(generics.ListCreateAPIView):
-    queryset = Sections.objects.all()
+    queryset = Sections.objects.order_by('-id')
     serializer_class = SectionsSerializers
 
 class SectionsDetailApi(generics.RetrieveUpdateDestroyAPIView):
