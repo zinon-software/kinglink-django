@@ -13,3 +13,20 @@ class CommentSerializers(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+
+
+
+class ReportSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Report
+        fields = '__all__'
+
+class CategorySerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+class SectionsSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Sections
+        fields = '__all__'

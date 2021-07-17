@@ -6,3 +6,6 @@ from .models import *
 
 admin.site.register(Groub)
 admin.site.register(Comment)
+admin.site.register(Report)
+admin.site.register(Category)
+admin.site.register(Sections)

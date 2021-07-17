@@ -27,3 +27,9 @@ def update_group(request):
     except:
         pass
     return JsonResponse('', safe=False)
+
+def report(request):
+    if request.user.is_authenticated:
+        reports = Report.objects.order_by('-id')
+
+    return render(request, 'report.html', {'reports':reports})

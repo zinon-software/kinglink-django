@@ -27,6 +27,13 @@ SECTIONS = [
     ('12', 'دعم'),
 ]
 
+class Category(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True)
+
+class Sections(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True)
+
+
 class Groub(models.Model):
     created_by = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE, related_name='user_created_by')
     name = models.CharField(max_length=100, null=True, blank=True)
@@ -53,3 +60,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class Report(models.Model):
+    group = models.ForeignKey(Groub, null=True, blank=True, related_name='report_group', on_delete=models.CASCADE)
+    message = models.TextField()
+    created_dt = models.DateTimeField(auto_now_add=True)
