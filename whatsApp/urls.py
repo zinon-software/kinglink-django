@@ -17,4 +17,10 @@ urlpatterns = [
 
     path('api/Report', api.ReportApi.as_view(), name='ReportApi'),
     path('api/Report/<int:id>', api.ReportDetailApi.as_view(), name='ReportDetailApi'),
+
+    path('api/Category', api.CategoryApi.as_view(), name='CategoryApi'),
+    path('api/Category/<int:id>', api.CategoryDetailApi.as_view(), name='CategoryDetailApi'),
+
+    path('api/Sections', api.SectionsApi.as_view(), name='SectionsApi'),
+    path('api/Sections/<int:id>', api.SectionsDetailApi.as_view(), name='SectionsDetailApi'),
 ]
