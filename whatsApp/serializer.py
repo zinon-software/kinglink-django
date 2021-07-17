@@ -2,7 +2,7 @@
 ### get data form model ---> json
 
 from rest_framework import serializers
-from .models import Groub, Comment
+from .models import *
 
 class GroubSerializers(serializers.ModelSerializer):
     class Meta:
