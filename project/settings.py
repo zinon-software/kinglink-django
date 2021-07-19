@@ -87,8 +87,12 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django_DB_KingLink',
+        'USER': 'postgres',
+        'PASSWORD': '716080096yemen',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
