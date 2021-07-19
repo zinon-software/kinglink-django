@@ -5,13 +5,15 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from rest_framework import generics
-# from rest_framework import viewsets
 
 from django_filters.rest_framework import DjangoFilterBackend
 
+# الروابط
 class GroubApi(generics.ListCreateAPIView):
     queryset = Groub.objects.filter(activation=True).order_by('-id')
     serializer_class = GroubSerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category']
 
 class GroubDetailApi(generics.RetrieveUpdateDestroyAPIView):
     queryset = Groub.objects.all()
@@ -19,18 +21,12 @@ class GroubDetailApi(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
 
-
+# التعليقات
 class CommentApi(generics.ListCreateAPIView):
     queryset = Comment.objects.order_by('-id')
     serializer_class = CommentSerializers
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['group']
-
-# class CommentApi(viewsets.ModelViewSet):
-#     queryset = Comment.objects.order_by('-id')
-#     serializer_class = CommentSerializers
-
-#     filter_fields = ('group', 'sender')
 
 class CommentDetailApi(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
@@ -38,7 +34,7 @@ class CommentDetailApi(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
 
-
+# البلاغات
 class ReportApi(generics.ListCreateAPIView):
     queryset = Report.objects.all()
     serializer_class = ReportSerializers
@@ -49,7 +45,7 @@ class ReportDetailApi(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
 
-
+# الفئات
 class CategoryApi(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializers
@@ -61,7 +57,7 @@ class CategoryDetailApi(generics.RetrieveUpdateDestroyAPIView):
 
 
 
-
+# الاقسام
 class SectionsApi(generics.ListCreateAPIView):
     queryset = Sections.objects.all()
     serializer_class = SectionsSerializers
