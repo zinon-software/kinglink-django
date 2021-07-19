@@ -5,7 +5,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from rest_framework import generics
+# from rest_framework import viewsets
 
+from django_filters.rest_framework import DjangoFilterBackend
 
 class GroubApi(generics.ListCreateAPIView):
     queryset = Groub.objects.filter(activation=True).order_by('-id')
@@ -17,14 +19,25 @@ class GroubDetailApi(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
 
+
 class CommentApi(generics.ListCreateAPIView):
     queryset = Comment.objects.order_by('-id')
     serializer_class = CommentSerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['group']
+
+# class CommentApi(viewsets.ModelViewSet):
+#     queryset = Comment.objects.order_by('-id')
+#     serializer_class = CommentSerializers
+
+#     filter_fields = ('group', 'sender')
 
 class CommentDetailApi(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializers
     lookup_field = 'id'
+
+
 
 class ReportApi(generics.ListCreateAPIView):
     queryset = Report.objects.all()
@@ -45,6 +58,9 @@ class CategoryDetailApi(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializers
     lookup_field = 'id'
+
+
+
 
 class SectionsApi(generics.ListCreateAPIView):
     queryset = Sections.objects.all()
