@@ -15,6 +15,12 @@ class GroubApi(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['sections']
 
+class GroubTopApi(generics.ListCreateAPIView):
+    queryset = Groub.objects.all().order_by('-views')[:10]
+    serializer_class = GroubSerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['sections']
+
 class GroubDetailApi(generics.RetrieveUpdateDestroyAPIView):
     queryset = Groub.objects.all()
     serializer_class = GroubSerializers
