@@ -16,7 +16,7 @@ class GroubApi(generics.ListCreateAPIView):
     filterset_fields = ['sections']
 
 class GroubTopApi(generics.ListCreateAPIView):
-    queryset = Groub.objects.all().order_by('-views')[:10]
+    queryset = Groub.objects.all().order_by('-views')[:18]
     serializer_class = GroubSerializers
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['sections']

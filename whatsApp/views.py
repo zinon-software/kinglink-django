@@ -10,6 +10,9 @@ import json
 def all_group(request):
     if request.user.is_authenticated:
         groups = Groub.objects.order_by('-id')
+    else :
+        groups = []
+        print(groups)
 
     return render(request, 'index.html', {'groups':groups})
 
