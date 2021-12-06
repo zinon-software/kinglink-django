@@ -5,11 +5,13 @@ from . import api
 
 urlpatterns = [
     path('', views.all_group, name='all_group'),
+    path('true', views.all_group_true, name='all_group_true'),
     path('update_group', views.update_group, name='update_group'),
     path('Report', views.report, name='Report'),
 
 
     path('api/Groub', api.GroubApi.as_view(), name='GroubApi'),
+    path('api/Groub/post', api.GroupPostApi.as_view(), name='GroupPostApi'),
     path('api/Groub/top', api.GroubTopApi.as_view(), name='GroubTopApi'),
     path('api/Groub/<int:id>', api.GroubDetailApi.as_view(), name='GroubDetailApi'),
     
@@ -24,4 +26,6 @@ urlpatterns = [
 
     path('api/Sections', api.SectionsApi.as_view(), name='SectionsApi'),
     path('api/Sections/<int:id>', api.SectionsDetailApi.as_view(), name='SectionsDetailApi'),
+
+
 ]
