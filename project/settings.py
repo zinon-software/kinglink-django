@@ -28,7 +28,7 @@ SECRET_KEY = 'ws56#tuha#d8^!06y*lc4dnxe71j&83lebi6c4s6auv7=p#%90'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://kinglink.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ['https://linkati.herokuapp.com/', '127.0.0.1']
 
 
 # Application definition
