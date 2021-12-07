@@ -1,10 +1,9 @@
 from rest_framework import permissions, response, status
 from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
-from comment.api.serializers import PostCommentSerializers
+from comment.api.serializers import PostCommentSerializers, CommentSerializers
 
 from whatsApp.models import Comment
-from whatsApp.serializer import CommentSerializers
 
 
 class CommentListAPIView(APIView):
