@@ -14,4 +14,4 @@ class GroupSerializers(serializers.ModelSerializer):
 class PostGroupSerializers(serializers.ModelSerializer):
      class Meta:
         model = Group
-        fields = ["name", "link", "category", "sections", "created_by"] 
+        fields = ["titel", "link", "category", "sections", "created_by"] 

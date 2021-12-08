@@ -21,7 +21,7 @@ class MyGroupListApiView(APIView):
     def post(self, request, *args, **kwargs):
 
         data = {
-            'name': request.data.get('name'), 
+            'titel': request.data.get('titel'), 
             'link': request.data.get('link'), 
             'created_by': request.user.id,
             'category': request.data.get('category'), 
@@ -75,7 +75,7 @@ class GroupDetailApiView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         data = {
-            'name': request.data.get('name'), 
+            'titel': request.data.get('titel'), 
             'link': request.data.get('link'), 
             'created_by': request.user.id,
             'category': request.data.get('category'), 
