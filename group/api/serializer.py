@@ -1,17 +1,17 @@
 # rest framewoark
 ### get data form model ---> json
 
-from django.db.models import fields
 from rest_framework import serializers
-from whatsApp.models import *
 
-class MyGroubSerializers(serializers.ModelSerializer):
+from group.models import Group
+
+class GroupSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Groub
+        model = Group
         fields = '__all__'
         depth = 1
 
-class PostGroubSerializers(serializers.ModelSerializer):
+class PostGroupSerializers(serializers.ModelSerializer):
      class Meta:
-        model = Groub
+        model = Group
         fields = ["name", "link", "category", "sections", "created_by"] 

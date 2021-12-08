@@ -1,12 +1,9 @@
-from types import prepare_class
-from rest_framework import serializers
-from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
-from whatsApp.models import Groub
-from .serializer import MyGroubSerializers, PostGroubSerializers
+from group.models import Group
+from .serializer import GroupSerializers, PostGroupSerializers
 
 # Create your views here.
 
@@ -17,8 +14,8 @@ class MyGroupListApiView(APIView):
         '''
         List all the group items for given requested user
         '''
-        groups = Groub.objects.filter(created_by = request.user.id)
-        serializer = MyGroubSerializers(groups, many=True)
+        groups = Group.objects.filter(created_by = request.user.id)
+        serializer = GroupSerializers(groups, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
@@ -31,7 +28,7 @@ class MyGroupListApiView(APIView):
             'sections': request.data.get('sections'), 
         }
 
-        serializer = PostGroubSerializers(data=data)
+        serializer = PostGroupSerializers(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -47,8 +44,8 @@ class GroupDetailApiView(APIView):
         Helper method to get the object with given group_id, and user_id
         '''
         try:
-            return Groub.objects.get(id=group_id, created_by=user_id)
-        except Groub.DoesNotExist:
+            return Group.objects.get(id=group_id, created_by=user_id)
+        except Group.DoesNotExist:
             return None
 
     # 3. Retrieve
@@ -63,7 +60,7 @@ class GroupDetailApiView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        serializer = MyGroubSerializers(group_instance)
+        serializer = GroupSerializers(group_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # 4. Update
@@ -84,7 +81,7 @@ class GroupDetailApiView(APIView):
             'category': request.data.get('category'), 
             'sections': request.data.get('sections'), 
         }
-        serializer = PostGroubSerializers(instance = group_instance, data=data, partial = True)
+        serializer = PostGroupSerializers(instance = group_instance, data=data, partial = True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
