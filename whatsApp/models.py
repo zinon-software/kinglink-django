@@ -18,7 +18,7 @@ class Sections(models.Model):
 
 
 class Groub(models.Model):
-    created_by = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE, related_name='user_created_by')
+    created_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='user_created_by')
     name = models.CharField(max_length=100, null=True, blank=True)
     link = models.CharField(max_length=255)
     activation = models.BooleanField(default=False, null=True, blank=True)
