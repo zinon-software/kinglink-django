@@ -59,6 +59,12 @@ class GroupDetailApiView(APIView):
                 {"res": "المجموعة غير موجودة"},
                 status=status.HTTP_400_BAD_REQUEST
             )
+        
+        session_key = 'view_topic_{}'.format(group_id)
+        if not request.session.get(session_key, False):
+            group_instance.views += 1
+            group_instance.save()
+            request.session[session_key] = True
 
         serializer = GroupSerializers(group_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)

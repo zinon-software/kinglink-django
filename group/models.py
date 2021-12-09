@@ -14,7 +14,7 @@ class Group(models.Model):
     created_dt = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, default=1, null=True, blank=True, related_name='Category_by', on_delete=models.CASCADE)
     sections = models.ForeignKey(Sections, default=1, null=True, blank=True, related_name='Sections_by', on_delete=models.CASCADE)
-    views = models.IntegerField(default=0, null=True, blank=True)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return str(self.id)
