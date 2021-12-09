@@ -111,6 +111,7 @@ class GroupDetailApiView(APIView):
         )
 
 class UpdateViewsGroupApiView(APIView):
+    permission_classes = [permissions.AllowAny]
 
     def get_object(group_id):
         try:
