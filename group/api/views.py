@@ -109,3 +109,29 @@ class GroupDetailApiView(APIView):
             {"res": "تم حذف الكائن!"},
             status=status.HTTP_200_OK
         )
+
+class UpdateViewsGroupApiView(APIView):
+
+    def get_object(group_id):
+        try:
+            return Group.objects.get(id= group_id)
+        except:
+            return None
+
+    def get(self, request, group_id, *args, **kwargs):
+
+        group_instance = self.get_object(group_id)
+        if not group_instance:
+            return Response(
+                {"res": "المجموعة غير موجودة"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        session_key = 'view_topic_{}'.format(group_id)
+        if not request.session.get(session_key, False):
+            group_instance.views += 1
+            group_instance.save()
+            request.session[session_key] = True
+
+        serializer = GroupSerializers(group_instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
