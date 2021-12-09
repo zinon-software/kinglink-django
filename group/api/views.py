@@ -113,10 +113,13 @@ class GroupDetailApiView(APIView):
 class UpdateViewsGroupApiView(APIView):
     permission_classes = [permissions.AllowAny]
 
-    def get_object(group_id):
+    def get_object(self, group_id):
+        '''
+        Helper method to get the object with given group_id, and user_id
+        '''
         try:
-            return Group.objects.get(id= group_id)
-        except:
+            return Group.objects.get(id=group_id)
+        except Group.DoesNotExist:
             return None
 
     def get(self, request, group_id, *args, **kwargs):
