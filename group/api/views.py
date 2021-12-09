@@ -14,9 +14,17 @@ class MyGroupListApiView(APIView):
         '''
         List all the group items for given requested user
         '''
-        groups = Group.objects.filter(created_by = request.user.id)
-        serializer = GroupSerializers(groups, many=True)
+        user = request.user
+
+        follows_users = user.profile.follows.all()
+        follows_posts = Group.objects.filter(created_by_id__in=follows_users)
+        user_posts = Group.objects.filter(created_by=user)
+        group_list = (follows_posts|user_posts).distinct().order_by('-created_dt')
+
+        # groups = Group.objects.filter(created_by = request.user.id)
+        serializer = GroupSerializers(group_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 
     def post(self, request, *args, **kwargs):
 
