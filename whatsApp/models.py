@@ -37,8 +37,8 @@ class Groub(models.Model):
 # Create comments models here.
 
 class Comment(models.Model):
-    sender = models.ForeignKey(User, null=True, blank=True, related_name='sent_comment', on_delete=models.CASCADE)
-    group = models.ForeignKey(Groub, null=True, blank=True, related_name='post_group', on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, null=True, blank=True, related_name='comment', on_delete=models.CASCADE)
+    group = models.ForeignKey(Groub, null=True, blank=True, related_name='group', on_delete=models.CASCADE)
     message = models.TextField()
     created_dt = models.DateTimeField(auto_now_add=True)
 

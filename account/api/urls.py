@@ -1,5 +1,6 @@
 from django.urls import path
 from account.api.views import(
+	UserFollowUnfollowApiView,
 	registration_view,
 )
 
@@ -12,4 +13,6 @@ urlpatterns = [
 
 	
 	path('login', obtain_auth_token, name="login"), # -> see accounts/api/views.py for response and url info
+
+	path('follow-unfollow/<int:pk>',UserFollowUnfollowApiView.as_view(),name="follow-unfollow"),
 ]

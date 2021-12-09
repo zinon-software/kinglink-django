@@ -1,9 +1,12 @@
-from rest_framework import status
+from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.views import APIView
 
 from account.api.serializers import RegistrationSerializer
 from rest_framework.authtoken.models import Token
+
+from account.models import Account
 
 # Register
 # Response: https://gist.github.com/mitchtabian/c13c41fa0f51b304d7638b7bac7cb694
@@ -36,30 +39,27 @@ def registration_view(request):
 
 # --------------------------------------------------------------------------------------
 
-# from django.shortcuts import render
+class UserFollowUnfollowApiView(APIView):
+	permission_classes = [permissions.IsAuthenticated]
 
-# # Create your views here.
+	def get(self, request, pk, *args, **kwargs):
+		print(request.user.id)
+		current_user = request.user
+		other_user = Account.objects.get(pk=pk)
+		print(other_user)
 
-# from django.http import HttpResponse, response
-# from rest_framework.views import APIView
+		if other_user not in current_user.profile.follows.all():
+			print("started following you.")
+			current_user.profile.follows.add(other_user)
+			other_user.profile.followers.add(current_user)
+			
+			# notify = Notification.objects.create(sender=current_user,receiver=other_user,action="started following you.")
+		else:
+			current_user.profile.follows.remove(other_user)
+			other_user.profile.followers.remove(current_user)
+			print("not started following you.")
 
-# from api_Auth.serializer import UserSerializer
+		return Response('profile')
 
-# from django.contrib.auth.models import User
-
-# from rest_framework.authtoken.models import Token
-
-# class RegisterUser(APIView):
-#     def post(self, request):
-#         serializer = UserSerializer(data=request.data)
-
-#         if not serializer.is_valid():
-#             return response({"statusCode": 403, 'errors': serializer.errors, 'message': 'Some'})
-        
-#         serializer.save()
-
-#         user = User.objects.get(username = serializer.data['username'])
-
-#         token_obj, _ =  Token.objects.get_or_create(user=user)
-
-#         return response({"statusCode": 200, 'payload': serializer.data, 'token': str(token_obj)})
+class ProfileApiView(APIView):
+	pass

@@ -71,3 +71,35 @@ class Account(AbstractBaseUser):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
+
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Profile(models.Model):
+    user = models.OneToOneField(Account, on_delete=models.CASCADE)
+    name = models.CharField(max_length=25,blank=True)
+
+    description = models.CharField(max_length=100, blank=True)
+    follows = models.ManyToManyField(Account,related_name="follows",blank=True)
+    followers = models.ManyToManyField(Account,related_name="followers",blank=True)
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+
+
+
+REASON = [
+    
+    ('SPAM','SPAM'),
+    ('INAPPROPRIATE','INAPPROPRIATE'),
+    
+]
+
+
+class UserReport(models.Model):
+    reported_user = models.ForeignKey(Account, on_delete=models.CASCADE,related_name='reported_user')
+    reason = models.CharField(max_length=14,choices=REASON)
+    reporting_user = models.ForeignKey(Account,on_delete=models.CASCADE,related_name='reporting_user')
+    date_reported = models.DateTimeField(auto_now_add=True) 
+
+    def __str__(self):
+        return self.reported_user.username

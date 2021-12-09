@@ -15,6 +15,11 @@ class Group(models.Model):
     category = models.ForeignKey(Category, default=1, null=True, blank=True, related_name='Category_by', on_delete=models.CASCADE)
     sections = models.ForeignKey(Sections, default=1, null=True, blank=True, related_name='Sections_by', on_delete=models.CASCADE)
     views = models.PositiveIntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='likes',blank=True)
 
+    @property
+    def total_likes(self):
+        return self.likes.count()
+        
     def __str__(self):
         return str(self.id)
