@@ -147,3 +147,39 @@ class UpdateViewsGroupApiView(APIView):
 
         serializer = GroupSerializers(group_instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class LikeApiView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self, group_id):
+        '''
+        Helper method to get the object with given group_id, and user_id
+        '''
+        try:
+            return Group.objects.get(id=group_id)
+        except Group.DoesNotExist:
+            return None
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        pk = request.POST.get('pk', None)
+
+        group_instance = self.get_object(pk)
+        if not group_instance:
+            return Response(
+                {"res": "المجموعة غير موجودة"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+
+        if group_instance.likes.filter(id=user.id).exists():
+            group_instance.likes.remove(user)
+            like = False
+            post_id = '#like'+str(group_instance.id)
+        else:
+            group_instance.likes.add(user)
+            like = True
+            post_id = '#like'+str(group_instance.id)
+           
+        data = {'likes_count': group_instance.total_likes,'like':like,'post_id':post_id}
+        return Response(data, status=status.HTTP_200_OK)
