@@ -131,7 +131,7 @@ class UpdateViewsGroupApiView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        session_key = 'view_topic_{}'.format(group_id)
+        session_key = 'view_group_{}'.format(group_id)
         if not request.session.get(session_key, False):
             group_instance.views += 1
             group_instance.save()
