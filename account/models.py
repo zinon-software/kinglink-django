@@ -77,12 +77,12 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class Profile(models.Model):
-    user = models.OneToOneField(Account, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(Account, on_delete=models.CASCADE, blank=True)
     name = models.CharField(max_length=25, null=True, blank=True)
     avatar = models.CharField(max_length=50, null=True, blank=True, default='https://cdn.icon-icons.com/icons2/1736/PNG/512/4043237-avatar-avocado-food-scream_113277.png')
     description = models.CharField(max_length=100,  null=True, blank=True)
-    follows = models.ManyToManyField(Account,related_name="follows", null=True, blank=True)
-    followers = models.ManyToManyField(Account,related_name="followers", null=True, blank=True)
+    follows = models.ManyToManyField(Account,related_name="follows",blank=True)
+    followers = models.ManyToManyField(Account,related_name="followers",blank=True)
     def __str__(self):
         return f"{self.user.username}'s Profile"
 
