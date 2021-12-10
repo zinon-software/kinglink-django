@@ -11,6 +11,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from account.models import Account, Profile
 from group.api.serializer import GroupSerializers
 from group.models import Group
+from notification.models import Notification
 
 # Register
 # Response: https://gist.github.com/mitchtabian/c13c41fa0f51b304d7638b7bac7cb694
@@ -53,17 +54,17 @@ class UserFollowUnfollowApiView(APIView):
 		print(other_user)
 
 		if other_user not in current_user.profile.follows.all():
-			print("started following you.")
+			data = "started following you."
 			current_user.profile.follows.add(other_user)
 			other_user.profile.followers.add(current_user)
 			
-			# notify = Notification.objects.create(sender=current_user,receiver=other_user,action="started following you.")
+			notify = Notification.objects.create(sender=current_user,receiver=other_user,action="started following you.")
 		else:
 			current_user.profile.follows.remove(other_user)
 			other_user.profile.followers.remove(current_user)
-			print("not started following you.")
+			data = "not started following you."
 
-		return Response('profile')
+		return Response(data)
 
 class ProfileApiView(APIView):
 	permission_classes = [permissions.IsAuthenticated]

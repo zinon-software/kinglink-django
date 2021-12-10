@@ -18,14 +18,10 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('whatsApp.urls')),
-
-    # path('api/group/', include('group.urls')),
-    # path('api/comment/', include('comment.urls')),
-
-    # path('api/account/', include('account.api.urls', 'account_api')),
     path('api/group/', include('group.urls')),
     path('api/comment/', include('comment.urls')),
 
     path('api/account/', include('account.api.urls', 'account_api')),
+    path('api/notification/', include('notification.urls')),
+
 ]

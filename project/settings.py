@@ -42,12 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Local Apps (Your project's apps)
-    'whatsApp',
-    # new update Apps
     'account',
     'group',
     'comment',
-
+    'notification',
 
     # Third-Party Apps
     'rest_framework',

@@ -2,9 +2,23 @@ from django.db import models
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from whatsApp.models import Sections, Category
 
 # Create your models here.
+
+
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True)
+    def __str__(self):
+        return self.name
+
+class Sections(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True)
+    def __str__(self):
+        return self.name
+
+
 
 class Group(models.Model):
     created_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='created_by_user')
