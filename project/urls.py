@@ -18,12 +18,12 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/group/', include('group.urls')),
-    # path('api/comment/', include('comment.urls')),
+    path('api/group/', include('group.urls')),
+    path('api/comment/', include('comment.urls')),
 
-    # path('api/account/', include('account.api.urls', 'account_api')),
-    # path('api/notification/', include('notification.urls')),
+    path('api/account/', include('account.api.urls', 'account_api')),
+    path('api/notification/', include('notification.urls')),
 
-    # path('api/dashboard/', include('dashboard.urls'))
+    path('api/dashboard/', include('dashboard.urls'))
 
 ]
