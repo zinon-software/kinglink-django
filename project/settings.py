@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'group',
     'comment',
     'notification',
+    'dashboard',
 
     # Third-Party Apps
     'rest_framework',

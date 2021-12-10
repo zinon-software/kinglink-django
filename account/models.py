@@ -79,7 +79,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 class Profile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     name = models.CharField(max_length=25,blank=True)
-
+    avatar = models.CharField(max_length=50,blank=True, default='https://cdn.icon-icons.com/icons2/1736/PNG/512/4043237-avatar-avocado-food-scream_113277.png')
     description = models.CharField(max_length=100, blank=True)
     follows = models.ManyToManyField(Account,related_name="follows",blank=True)
     followers = models.ManyToManyField(Account,related_name="followers",blank=True)

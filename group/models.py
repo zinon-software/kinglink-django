@@ -23,7 +23,7 @@ class Sections(models.Model):
 class Group(models.Model):
     created_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='created_by_user')
     titel = models.CharField(max_length=100, null=True, blank=True)
-    link = models.CharField(max_length=255)
+    link = models.CharField(max_length=170)
     activation = models.BooleanField(default=False, null=True, blank=True)
     created_dt = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, default=1, null=True, blank=True, related_name='Category_by', on_delete=models.CASCADE)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from account.models import Account
+from account.models import Account, Profile
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -28,3 +28,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
 		account.set_password(password)
 		account.save()
 		return account
+
+
+class ProfileUpdateSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['name','description','avatar']

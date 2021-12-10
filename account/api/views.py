@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from account.api.serializers import RegistrationSerializer
+from account.api.serializers import RegistrationSerializer, ProfileUpdateSerializers
 from rest_framework.authtoken.models import Token
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -73,9 +73,9 @@ class ProfileApiView(APIView):
 		user =  get_object_or_404(Account,username=username)
 		profile = Profile.objects.get(user=user)
 		
-		post_list = Group.objects.filter(created_by = request.user.id)
-		serializer = GroupSerializers(post_list, many=True)
-		post_count = post_list.count()
+		group_list = Group.objects.filter(created_by = request.user.id)
+		serializer = GroupSerializers(group_list, many=True)
+		post_count = group_list.count()
 
 		data = {
 			'post_count':post_count,
@@ -83,7 +83,18 @@ class ProfileApiView(APIView):
 			"followers":user.profile.followers.all().count(),
 			"name": profile.name,
 			"bio": profile.description,
-			'data':serializer.data, 
+			'group_list':serializer.data, 
 		}
 		return Response(data, status=status.HTTP_200_OK)
+
+	def put(self, request, *args, **kwargs):
+		
+		p_serializers = ProfileUpdateSerializers(instance=request.user.profile, data=request.POST, partial = True)
+
+		if p_serializers.is_valid():
+			p_serializers.save()
+			return Response(p_serializers.data, status=status.HTTP_200_OK)
+		
+		return Response(p_serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
