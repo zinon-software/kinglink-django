@@ -14,11 +14,14 @@ class MyGroupListApiView(APIView):
         '''
         List all the group items for given requested user
         '''
-        user = request.user
+        profile = request.user.profile
+        # user = request.user
 
-        follows_users = user.profile.follows.all()
+        follows_users = profile.follows.all()
+        # follows_users = user.profile.follows.all()
         follows_posts = Group.objects.filter(created_by_id__in=follows_users)
-        group_list = Group.objects.filter(created_by=user)
+        group_list = Group.objects.filter(created_by=profile)
+        # group_list = Group.objects.filter(created_by=user)
         group_list = (follows_posts|group_list).distinct().order_by('-created_dt')
 
         # groups = Group.objects.filter(created_by = request.user.id)
@@ -31,7 +34,7 @@ class MyGroupListApiView(APIView):
         data = {
             'titel': request.data.get('titel'), 
             'link': request.data.get('link'), 
-            'created_by': request.user.id,
+            'created_by': request.user.profile.id, # 'created_by': request.user.id,
             'category': request.data.get('category'), 
             'sections': request.data.get('sections'), 
         }
@@ -47,12 +50,12 @@ class GroupDetailApiView(APIView):
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_object(self, group_id, user_id):
+    def get_object(self, group_id, profile_id):
         '''
-        Helper method to get the object with given group_id, and user_id
+        Helper method to get the object with given group_id, and profile_id
         '''
         try:
-            return Group.objects.get(id=group_id, created_by=user_id)
+            return Group.objects.get(id=group_id, created_by=profile_id)
         except Group.DoesNotExist:
             return None
 
@@ -61,7 +64,8 @@ class GroupDetailApiView(APIView):
         '''
         Retrieves the Todo with given group_id
         '''
-        group_instance = self.get_object(group_id, request.user.id)
+        group_instance = self.get_object(group_id, request.user.profile.id)
+        # group_instance = self.get_object(group_id, request.user.id)
         if not group_instance:
             return Response(
                 {"res": "المجموعة غير موجودة"},
@@ -82,7 +86,8 @@ class GroupDetailApiView(APIView):
         '''
         Updates the todo item with given group_id if exists
         '''
-        group_instance = self.get_object(group_id, request.user.id)
+        group_instance = self.get_object(group_id, request.user.profile.id)
+        # group_instance = self.get_object(group_id, request.user.id)
         if not group_instance:
             return Response(
                 {"res": "المجموعة غير موجودة"}, 
@@ -91,7 +96,7 @@ class GroupDetailApiView(APIView):
         data = {
             'titel': request.data.get('titel'), 
             'link': request.data.get('link'), 
-            'created_by': request.user.id,
+            'created_by': request.user.profile.id, # 'created_by': request.user.id,
             'category': request.data.get('category'), 
             'sections': request.data.get('sections'), 
         }
@@ -106,7 +111,8 @@ class GroupDetailApiView(APIView):
         '''
         Deletes the todo item with given group_id if exists
         '''
-        group_instance = self.get_object(group_id, request.user.id)
+        group_instance = self.get_object(group_id, request.user.profile.id)
+        # group_instance = self.get_object(group_id, request.user.id)
         if not group_instance:
             return Response(
                 {"res": "المجموعة غير موجودة"}, 
@@ -161,7 +167,8 @@ class LikeApiView(APIView):
             return None
 
     def post(self, request, *args, **kwargs):
-        user = request.user
+        profile = request.user.profile
+        # user = request.user
         pk = request.POST.get('pk', None)
 
         group_instance = self.get_object(pk)
@@ -172,12 +179,15 @@ class LikeApiView(APIView):
             )
 
 
-        if group_instance.likes.filter(id=user.id).exists():
-            group_instance.likes.remove(user)
+        if group_instance.likes.filter(id=profile.id).exists():
+            group_instance.likes.remove(profile)
+        # if group_instance.likes.filter(id=user.id).exists():
+        #     group_instance.likes.remove(user)
             like = False
             post_id = '#like'+str(group_instance.id)
         else:
-            group_instance.likes.add(user)
+            group_instance.likes.add(profile)
+            # group_instance.likes.add(user)
             like = True
             post_id = '#like'+str(group_instance.id)
            

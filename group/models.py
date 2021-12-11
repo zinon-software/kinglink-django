@@ -1,6 +1,8 @@
 from django.db import models
 
 from django.contrib.auth import get_user_model
+
+from account.models import Profile
 User = get_user_model()
 
 # Create your models here.
@@ -21,7 +23,7 @@ class Sections(models.Model):
 
 
 class Group(models.Model):
-    created_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='created_by_user')
+    created_by = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE, related_name='created_by_profile')
     titel = models.CharField(max_length=100, null=True, blank=True)
     link = models.CharField(max_length=170)
     activation = models.BooleanField(default=False, null=True, blank=True)

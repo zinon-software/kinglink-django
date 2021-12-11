@@ -69,11 +69,30 @@ class UserFollowUnfollowApiView(APIView):
 class ProfileApiView(APIView):
 	permission_classes = [permissions.IsAuthenticated]
 
+	# def get(self, request, username, *args, **kwargs):
+	# 	user =  get_object_or_404(Account,username=username)
+	# 	profile = Profile.objects.get(user=user)
+		
+	# 	group_list = Group.objects.filter(created_by = request.user.id)
+	# 	serializer = GroupSerializers(group_list, many=True)
+	# 	post_count = group_list.count()
+
+	# 	data = {
+	# 		'post_count':post_count,
+	# 		"follows":user.profile.follows.all().count(),
+	# 		"followers":user.profile.followers.all().count(),
+	# 		"name": profile.name,
+	# 		"bio": profile.description,
+	# 		"avatar": profile.avatar,
+	# 		'group_list':serializer.data, 
+	# 	}
+	# 	return Response(data, status=status.HTTP_200_OK)
+
 	def get(self, request, username, *args, **kwargs):
 		user =  get_object_or_404(Account,username=username)
 		profile = Profile.objects.get(user=user)
 		
-		group_list = Group.objects.filter(created_by = request.user.id)
+		group_list = Group.objects.filter(created_by = request.user.profile.id)
 		serializer = GroupSerializers(group_list, many=True)
 		post_count = group_list.count()
 
