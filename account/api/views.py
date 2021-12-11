@@ -83,6 +83,7 @@ class ProfileApiView(APIView):
 			"followers":user.profile.followers.all().count(),
 			"name": profile.name,
 			"bio": profile.description,
+			"avatar": profile.avatar,
 			'group_list':serializer.data, 
 		}
 		return Response(data, status=status.HTTP_200_OK)
