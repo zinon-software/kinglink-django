@@ -23,7 +23,7 @@ class Sections(models.Model):
 
 
 class Group(models.Model):
-    created_by = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE, related_name='created_by_profile')
+    created_by = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE, related_name='created_by_user')
     titel = models.CharField(max_length=100, null=True, blank=True)
     link = models.CharField(max_length=170)
     activation = models.BooleanField(default=False, null=True, blank=True)
@@ -31,7 +31,7 @@ class Group(models.Model):
     category = models.ForeignKey(Category, default=1, null=True, blank=True, related_name='Category_by', on_delete=models.CASCADE)
     sections = models.ForeignKey(Sections, default=1, null=True, blank=True, related_name='Sections_by', on_delete=models.CASCADE)
     views = models.PositiveIntegerField(default=0)
-    likes = models.ManyToManyField(User, related_name='likes',blank=True)
+    likes = models.ManyToManyField(Profile, related_name='likes',blank=True)
 
     @property
     def total_likes(self):
