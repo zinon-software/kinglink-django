@@ -20,7 +20,7 @@ class CommentListAPIView(APIView):
     def post(self, request, post_id, *args, **kwargs):
 
         data = {
-            "sender" : request.user.id,
+            "sender" : request.user.profile.id,
             "group" : post_id,
             "message" : request.data.get('message'),
         }
@@ -44,14 +44,14 @@ class PUTAndDeleteCommentAPIView(APIView):
             return None
 
     def put(self, request, comment_id, *args, **kwargs):
-        comment_instance = self.get_opject(comment_id, request.user.id)
+        comment_instance = self.get_opject(comment_id, request.user.profile.id)
 
         if not comment_instance:
             return response.Response({"res": "المجموعة غير موجودة"}, 
                 status=status.HTTP_400_BAD_REQUEST)
         
         data = {
-            "sender" : request.user.id,
+            "sender" : request.user.profile.id,
             "group" : comment_id,
             "message" : request.data.get('message'),
         }
@@ -63,7 +63,7 @@ class PUTAndDeleteCommentAPIView(APIView):
 
     def delete(self, request, comment_id, *args, **kwargs):
 
-        comment_instance = self.get_opject(comment_id, request.user.id)
+        comment_instance = self.get_opject(comment_id, request.user.profile.id)
 
         if not comment_instance:
             return response.Response({"res": "المجموعة غير موجودة"}, 
