@@ -9,7 +9,7 @@ class NotificationAPIView(APIView):
 
     def get(self, request, *args, **kwargs):
 
-        notifications = Notification.objects.filter(receiver=request.user.id)
+        notifications = Notification.objects.filter(receiver=request.user.profile.id)
         notfy =NotificationSerializers(notifications, many=True)
 
         return Response(notfy.data, status=status.HTTP_200_OK)
@@ -17,7 +17,7 @@ class NotificationAPIView(APIView):
 class NotificationUpdateAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request, *args, **kwargs):
-        notifications = Notification.objects.filter(receiver=request.user.id)
+        notifications = Notification.objects.filter(receiver=request.user.profile.id)
         for notification in notifications.all():
             if notification.read == False:
                 notification.read = True

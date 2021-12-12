@@ -38,7 +38,7 @@ class GroupsReviewAPIView(APIView):
         group_instance.activation = True
         group_instance.save()
 
-        Notification.objects.create(sender=request.user, receiver=group_instance.created_by, post=group_instance, action= f"قام @{request.user.username} بنشر مجموعتك {group_instance.titel}")
+        Notification.objects.create(sender=request.user.profile, receiver=group_instance.created_by, post=group_instance, action= f"قام @{request.user.username} بنشر مجموعتك {group_instance.titel}")
         
         return Response("published ", status=status.HTTP_200_OK)
 
