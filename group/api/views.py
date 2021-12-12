@@ -51,7 +51,7 @@ class MyGroupListApiView(APIView):
             followers_users = request.user.profile.followers.all()
             followers_users = Profile.objects.filter(user__in=followers_users)
             for follower_user in followers_users:
-                Notification.objects.create(sender=request.user.profile, receiver=follower_user, post=data, action= f"قام @{request.user.username} بالعجاب ب {data.titel}")
+                Notification.objects.create(sender=request.user.profile, receiver=follower_user, post=data, action= f"قام @{request.user.username} بنشر مجموعة جديدة {data.titel}")
             
             
             return Response(serializer.data, status=status.HTTP_201_CREATED)

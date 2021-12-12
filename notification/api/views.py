@@ -9,7 +9,7 @@ class NotificationAPIView(APIView):
 
     def get(self, request, *args, **kwargs):
 
-        notifications = Notification.objects.filter(receiver=request.user.profile.id)
+        notifications = Notification.objects.filter(receiver=request.user.profile.id).order_by('-created_dt')
         notfy =NotificationSerializers(notifications, many=True)
 
         return Response(notfy.data, status=status.HTTP_200_OK)
