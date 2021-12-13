@@ -18,5 +18,5 @@ urlpatterns = [
 
 	path('follow-unfollow/<int:pk>',UserFollowUnfollowApiView.as_view(),name="follow-unfollow"),
 	path('<int:id>', ProfileApiView.as_view(), name='profile'),
-	path('<int:id>/groups', ProfileApiView.as_view(), name='profileGroups'),
+	path('<int:id>/groups', ProfileGroupsAPIView.as_view(), name='profileGroups'),
 ]

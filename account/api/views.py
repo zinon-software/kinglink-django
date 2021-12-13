@@ -73,19 +73,16 @@ class ProfileApiView(APIView):
 		user =  get_object_or_404(Account,id=id)
 		profile = Profile.objects.get(user=user)
 		
-		group_list = Group.objects.filter(created_by = profile.id)
-		# serializer = GroupSerializers(group_list, many=True)
-		post_count = group_list.count()
+		group_list = Group.objects.filter(created_by = profile.id, activation=True)
 
 		data = {
-			'post_count':post_count,
+			'post_count':group_list.count(),
 			"follows":user.profile.follows.all().count(),
 			"followers":user.profile.followers.all().count(),
 			"name": profile.name,
 			"username": user.username,
 			"bio": profile.description,
 			"avatar": profile.avatar,
-			# 'group_list':serializer.data, 
 		}
 		return Response(data, status=status.HTTP_200_OK)
 
@@ -101,10 +98,10 @@ class ProfileApiView(APIView):
 
 
 class ProfileGroupsAPIView(APIView):
-	permission_classes = [permissions.permissions.IsAuthenticated]
+	permission_classes = [permissions.IsAuthenticated]
 	def get(self, request, id, *args, **kwargs):
 		user =  get_object_or_404(Account,id=id)
 		
-		group_list = Group.objects.filter(created_by = user.profile.id)
+		group_list = Group.objects.filter(created_by = user.profile.id, activation=True)
 		serializer = GroupSerializers(group_list, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)

@@ -27,7 +27,6 @@ class MyGroupListApiView(APIView):
         group_list = Group.objects.filter(created_by=user.profile)
         group_list = (follows_posts|group_list).distinct().order_by('-created_dt')
 
-        # groups = Group.objects.filter(created_by = request.user.id)
         serializer = GroupSerializers(group_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
