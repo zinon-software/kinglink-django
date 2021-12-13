@@ -80,6 +80,7 @@ class ProfileApiView(APIView):
 			"follows":user.profile.follows.all().count(),
 			"followers":user.profile.followers.all().count(),
 			"name": profile.name,
+			"id": user.id,
 			"username": user.username,
 			"bio": profile.description,
 			"avatar": profile.avatar,
