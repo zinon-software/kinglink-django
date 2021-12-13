@@ -198,5 +198,5 @@ class LikeApiView(APIView):
             Notification.objects.create(sender=request.user.profile, receiver=group_instance.created_by, post=group_instance, action= f"قام @{request.user.username} بالعجاب ب {group_instance.titel}")
         
            
-        data = {'likes_count': group_instance.total_likes,'like':like,'post_id':post_id}
+        data = {'likes_count': group_instance.total_likes,'like':like,'post_id':post_id, 'user_id':user.id}
         return Response(data, status=status.HTTP_200_OK)
