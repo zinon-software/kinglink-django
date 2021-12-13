@@ -74,7 +74,7 @@ class ProfileApiView(APIView):
 		profile = Profile.objects.get(user=user)
 		
 		group_list = Group.objects.filter(created_by = profile.id)
-		serializer = GroupSerializers(group_list, many=True)
+		# serializer = GroupSerializers(group_list, many=True)
 		post_count = group_list.count()
 
 		data = {
@@ -85,7 +85,7 @@ class ProfileApiView(APIView):
 			"username": user.username,
 			"bio": profile.description,
 			"avatar": profile.avatar,
-			'group_list':serializer.data, 
+			# 'group_list':serializer.data, 
 		}
 		return Response(data, status=status.HTTP_200_OK)
 
