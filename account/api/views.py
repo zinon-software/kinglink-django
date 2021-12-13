@@ -69,8 +69,8 @@ class UserFollowUnfollowApiView(APIView):
 class ProfileApiView(APIView):
 	permission_classes = [permissions.IsAuthenticated]
 
-	def get(self, request, username, *args, **kwargs):
-		user =  get_object_or_404(Account,username=username)
+	def get(self, request, id, *args, **kwargs):
+		user =  get_object_or_404(Account,id=id)
 		profile = Profile.objects.get(user=user)
 		
 		group_list = Group.objects.filter(created_by = profile.id)

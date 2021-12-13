@@ -16,5 +16,5 @@ urlpatterns = [
 	path('login', login_auth_token, name="login"), # -> see accounts/api/views.py for response and url info
 
 	path('follow-unfollow/<int:pk>',UserFollowUnfollowApiView.as_view(),name="follow-unfollow"),
-	path('<str:username>', ProfileApiView.as_view(), name='profile'),
+	path('<int:id>', ProfileApiView.as_view(), name='profile'),
 ]
