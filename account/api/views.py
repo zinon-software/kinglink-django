@@ -79,13 +79,13 @@ class ProfileApiView(APIView):
 
 		data = {
 			'post_count':post_count,
-			"follows":user.profile.follows.all().count(),
-			"followers":user.profile.followers.all().count(),
+			"follows":user.profile.follows.all(),
+			"followers":user.profile.followers.all(),
 			"name": profile.name,
 			"username": user.username,
 			"bio": profile.description,
 			"avatar": profile.avatar,
-			'group_list':serializer.data, 
+			# 'group_list':serializer.data, 
 		}
 		return Response(data, status=status.HTTP_200_OK)
 
