@@ -9,7 +9,7 @@ class NotificationAPIView(APIView):
 
     def get(self, request, *args, **kwargs):
 
-        notifications = Notification.objects.filter(receiver=request.user.profile.id, read = False).order_by('-created_dt')
+        notifications = Notification.objects.filter(receiver=request.user.profile.id).order_by('-created_dt')
         notfy =NotificationSerializers(notifications, many=True)
 
         return Response(notfy.data, status=status.HTTP_200_OK)
@@ -20,6 +20,7 @@ class NotificationUpdateAPIView(APIView):
         notifications = Notification.objects.filter(receiver=request.user.profile.id)
         for notification in notifications.all():
             if notification.read == False:
-                notification.read = True
-                notification.save()
+                # notification.read = True
+                # notification.save()
+                notification.delete()
         return Response("مقروئات", status=status.HTTP_200_OK)
