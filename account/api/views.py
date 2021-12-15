@@ -75,7 +75,6 @@ class ProfileApiView(APIView):
 		
 		group_list = Group.objects.filter(created_by = profile.id, activation=True)
 
-		// 
 		current_user = request.user
 		if user not in current_user.profile.follows.all():
 			isFollowing = False
