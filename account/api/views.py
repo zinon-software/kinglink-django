@@ -75,7 +75,15 @@ class ProfileApiView(APIView):
 		
 		group_list = Group.objects.filter(created_by = profile.id, activation=True)
 
+		// 
+		current_user = request.user
+		if user not in current_user.profile.follows.all():
+			isFollowing = False
+		else : 
+			isFollowing = True
+
 		data = {
+			'isFollowing': isFollowing,
 			'post_count':group_list.count(),
 			"follows":user.profile.follows.all().count(),
 			"followers":user.profile.followers.all().count(),
