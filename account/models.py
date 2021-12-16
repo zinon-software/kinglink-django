@@ -104,3 +104,7 @@ class UserReport(models.Model):
 
     def __str__(self):
         return self.reported_user.username
+
+
+class Avatar(models.Model):
+	avatar = models.CharField(max_length=250, null=True, blank=True, default='https://cdn.icon-icons.com/icons2/1736/PNG/512/4043237-avatar-avocado-food-scream_113277.png')

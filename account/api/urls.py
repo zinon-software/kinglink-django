@@ -4,6 +4,7 @@ from account.api.views import(
 	registration_view,
 	ProfileApiView,
 	ProfileGroupsAPIView,
+	AvatarAPIView,
 )
 
 from .loginToken import login_auth_token
@@ -19,4 +20,7 @@ urlpatterns = [
 	path('follow-unfollow/<int:pk>',UserFollowUnfollowApiView.as_view(),name="follow-unfollow"),
 	path('<int:id>', ProfileApiView.as_view(), name='profile'),
 	path('<int:id>/groups', ProfileGroupsAPIView.as_view(), name='profileGroups'),
+
+
+	path('avatar', AvatarAPIView.as_view(), name='avatar'),
 ]

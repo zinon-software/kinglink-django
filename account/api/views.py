@@ -3,12 +3,12 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from account.api.serializers import RegistrationSerializer, ProfileUpdateSerializers
+from account.api.serializers import AvatarSerializers, RegistrationSerializer, ProfileUpdateSerializers
 from rest_framework.authtoken.models import Token
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from account.models import Account, Profile
+from account.models import Account, Avatar, Profile
 from group.api.serializer import GroupSerializers
 from group.models import Group
 from notification.models import Notification
@@ -112,4 +112,12 @@ class ProfileGroupsAPIView(APIView):
 		
 		group_list = Group.objects.filter(created_by = user.profile.id, activation=True)
 		serializer = GroupSerializers(group_list, many=True)
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+class AvatarAPIView(APIView):
+	permission_classes = [permissions.IsAuthenticated]
+
+	def get(self, request, *args, **kwargs):
+		avatar = Avatar.objects.all()
+		serializer = AvatarSerializers(avatar, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)

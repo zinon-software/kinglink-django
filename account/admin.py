@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from account.models import Account, Profile, UserReport
+from account.models import Account, Profile, UserReport, Avatar
 
 
 class AccountAdmin(UserAdmin):
@@ -16,3 +16,6 @@ admin.site.register(Account, AccountAdmin)
 
 admin.site.register(Profile)
 admin.site.register(UserReport)
+
+admin.site.register(Avatar)
+
