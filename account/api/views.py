@@ -58,7 +58,7 @@ class UserFollowUnfollowApiView(APIView):
 			current_user.profile.follows.add(other_user)
 			other_user.profile.followers.add(current_user)
 			
-			notify = Notification.objects.create(sender=current_user,receiver=other_user,action="started following you.")
+			notify = Notification.objects.create(sender=current_user.profile,receiver=other_user.profile, action="started following you.")
 		else:
 			current_user.profile.follows.remove(other_user)
 			other_user.profile.followers.remove(current_user)
