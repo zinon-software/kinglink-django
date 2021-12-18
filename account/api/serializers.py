@@ -43,7 +43,7 @@ class AvatarSerializers(serializers.ModelSerializer):
 
 
 
-class AccountSerializers(serializers.ModelSerializer):
+class ProfileSerializers(serializers.ModelSerializer):
 	class Meta:
-		model = Account
+		model = Profile
 		fields = '__all__'
