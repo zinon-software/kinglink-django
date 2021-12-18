@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-from account.api.serializers import AvatarSerializers, RegistrationSerializer, ProfileUpdateSerializers
+from account.api.serializers import AccountSerializers, AvatarSerializers, RegistrationSerializer, ProfileUpdateSerializers
 from rest_framework.authtoken.models import Token
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -120,4 +120,13 @@ class AvatarAPIView(APIView):
 	def get(self, request, *args, **kwargs):
 		avatar = Avatar.objects.all()
 		serializer = AvatarSerializers(avatar, many=True)
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class UsersAPIView(APIView):
+	permission_classes = [permissions.IsAuthenticated]
+
+	def get(self, request, *args, **kwargs):
+		users = Account.objects.all()
+		serializer = AccountSerializers(users, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)

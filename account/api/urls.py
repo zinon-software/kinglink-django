@@ -5,6 +5,7 @@ from account.api.views import(
 	ProfileApiView,
 	ProfileGroupsAPIView,
 	AvatarAPIView,
+	UsersAPIView,
 )
 
 from .loginToken import login_auth_token
@@ -23,4 +24,7 @@ urlpatterns = [
 
 
 	path('avatar', AvatarAPIView.as_view(), name='avatar'),
+
+
+	path('users', UsersAPIView.as_view(), name='users'),
 ]

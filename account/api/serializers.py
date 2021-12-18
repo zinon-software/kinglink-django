@@ -40,3 +40,10 @@ class AvatarSerializers(serializers.ModelSerializer):
 	class Meta:
 		model = Avatar
 		fields = '__all__'
+
+
+
+class AccountSerializers(serializers.ModelSerializer):
+	class Meta:
+		model = Account
+		fields = '__all__'
