@@ -89,6 +89,7 @@ class ProfileApiView(APIView):
 			"name": profile.name,
 			"id": user.id,
 			"username": user.username,
+			"is_admin": user.is_admin,
 			"bio": profile.description,
 			"avatar": profile.avatar,
 		}
