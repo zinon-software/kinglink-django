@@ -22,9 +22,9 @@ class MyGroupListApiView(APIView):
 
         follows_users = Profile.objects.filter(user__in=follows_users)
 
-        follows_posts = Group.objects.filter(created_by__in=follows_users)
+        follows_posts = Group.objects.filter(created_by__in=follows_users, activation=True)
 
-        group_list = Group.objects.filter(created_by=user.profile)
+        group_list = Group.objects.filter(created_by=user.profile, activation=True)
         group_list = (follows_posts|group_list).distinct().order_by('-created_dt')
 
         serializer = GroupSerializers(group_list, many=True)

@@ -111,7 +111,7 @@ class ProfileGroupsAPIView(APIView):
 	def get(self, request, id, *args, **kwargs):
 		user =  get_object_or_404(Account,id=id)
 		
-		group_list = Group.objects.filter(created_by = user.profile.id)
+		group_list = Group.objects.filter(created_by = user.profile.id,activation=True )
 		serializer = GroupSerializers(group_list, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
