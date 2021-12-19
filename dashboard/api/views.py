@@ -43,5 +43,19 @@ class GroupsReviewAPIView(APIView):
         return Response("published ", status=status.HTTP_200_OK)
 
 
-
+    def delete(self, request, group_id, *args, **kwargs):
+        '''
+        Deletes the todo item with given group_id if exists
+        '''
+        group_instance = self.get_object(request.data.get('id'))
+        if not group_instance:
+            return Response(
+                {"res": "المجموعة غير موجودة"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        group_instance.delete()
+        return Response(
+            {"res": "تم حذف الكائن!"},
+            status=status.HTTP_200_OK
+        )
 
