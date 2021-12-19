@@ -53,7 +53,7 @@ class MyGroupListApiView(APIView):
                 Notification.objects.create(sender=request.user.profile, receiver=follower_user, post=data, action= f"قام @{request.user.username} بنشر مجموعة جديدة {data.titel}")
             
             
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
