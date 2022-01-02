@@ -3,7 +3,7 @@
 
 from rest_framework import serializers
 
-from group.models import Group, Sections
+from group.models import Group
 
 class GroupSerializers(serializers.ModelSerializer):
     class Meta:
@@ -16,7 +16,3 @@ class PostGroupSerializers(serializers.ModelSerializer):
         model = Group
         fields = ["titel", "link", "category", "sections", "created_by"] 
 
-class SectionsSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Sections
-        fields = '__all__' 

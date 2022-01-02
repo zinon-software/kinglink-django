@@ -4,9 +4,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from account.models import Profile
-from group.models import Group, Sections
+from group.models import Group
 from notification.models import Notification
-from .serializer import GroupSerializers, PostGroupSerializers, SectionsSerializers
+from .serializer import GroupSerializers, PostGroupSerializers
 
 # Create your views here.
 
@@ -50,6 +50,11 @@ class MyGroupListApiView(APIView):
             # ارسال الاشعارات للمستخدمين بخصوص المنشور الجديد
             followers_users = request.user.profile.followers.all()
             followers_users = Profile.objects.filter(user__in=followers_users)
+
+            # profile = request.user.profile
+            # profile.posts += 1
+            # profile.save()
+
             for follower_user in followers_users:
                 Notification.objects.create(sender=request.user.profile, receiver=follower_user, post=data, action= f"قام @{request.user.username} بنشر مجموعة جديدة {data.titel}")
             
@@ -128,6 +133,12 @@ class GroupDetailApiView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         group_instance.delete()
+
+        if group_instance.activation == True:
+            profile = request.user.profile
+            profile.posts -= 1
+            profile.save()
+        
         return Response(
             {"res": "تم حذف الكائن!"},
             status=status.HTTP_200_OK
@@ -200,14 +211,3 @@ class LikeApiView(APIView):
            
         data = {'likes_count': group_instance.total_likes,'like':like,'post_id':post_id, 'user_id':user.id}
         return Response(data, status=status.HTTP_200_OK)
-
-
-class SectionsAIPView(APIView):
-    permission_classes = [permissions.AllowAny]
-
-    def get(self, request, *args, **kwargs):
-        sections = Sections.objects.all()
-
-        serializer = SectionsSerializers(sections, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-

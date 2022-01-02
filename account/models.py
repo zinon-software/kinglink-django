@@ -81,6 +81,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=25, null=True, blank=True)
     avatar = models.CharField(max_length=250, null=True, blank=True, default='https://cdn.icon-icons.com/icons2/1736/PNG/512/4043237-avatar-avocado-food-scream_113277.png')
     description = models.CharField(max_length=100,  null=True, blank=True)
+    posts = models.PositiveIntegerField(default=0)
     follows = models.ManyToManyField(Account,related_name="follows")
     followers = models.ManyToManyField(Account,related_name="followers")
     def __str__(self):
