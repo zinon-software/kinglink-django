@@ -186,7 +186,7 @@ class LikeApiView(APIView):
         except Group.DoesNotExist:
             return None
 
-    def post(self, request, pk,*args, **kwargs):
+    def get(self, request, pk,*args, **kwargs):
         user = request.user.profile
 
         group_instance = self.get_object(pk)
