@@ -97,7 +97,7 @@ class ProfileApiView(APIView):
 
 	def put(self, request, *args, **kwargs):
 		
-		p_serializers = ProfileUpdateSerializers(instance=request.user.profile, data=request.POST)
+		p_serializers = ProfileUpdateSerializers(instance=request.user.profile, data=request.data, partial = True)
 
 		if p_serializers.is_valid():
 			p_serializers.save()
