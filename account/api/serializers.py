@@ -1,5 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
+from rest_framework.serializers import Serializer
 
 from account.models import Account, Avatar, Profile
 
@@ -31,7 +32,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 		return account
 
 
-class ProfileUpdateSerializers(serializers.ModelSerializer):
+class ProfileUpdateSerializers(Serializer):
     class Meta:
         model = Profile
         fields = ['name','description','avatar']
