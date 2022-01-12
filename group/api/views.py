@@ -65,7 +65,7 @@ class MyGroupListApiView(APIView):
 
 class GroupDetailApiView(APIView):
     # add permission to check if user is authenticated
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
 
     def get_object(self, group_id, user_id):
         '''
@@ -126,7 +126,10 @@ class GroupDetailApiView(APIView):
         '''
         Deletes the todo item with given group_id if exists
         '''
-        group_instance = self.get_object(group_id, request.user.profile.id)
+        if(request.user.is_admin):
+            group_instance = Group.objects.get(id=group_id)
+        else:
+            group_instance = self.get_object(group_id, request.user.profile.id)
         if not group_instance:
             return Response(
                 {"res": "المجموعة غير موجودة"}, 
