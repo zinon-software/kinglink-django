@@ -38,6 +38,8 @@ class MyGroupListApiView(APIView):
             'titel': request.data.get('titel'), 
             'link': request.data.get('link'), 
             'created_by': request.user.profile.id,
+            'message': request.data.get('message'), 
+            'data_type': request.data.get('data_type'), 
             'category': request.data.get('category'), 
             'sections': request.data.get('sections'), 
         }
@@ -113,6 +115,8 @@ class GroupDetailApiView(APIView):
             'link': request.data.get('link'), 
             'created_by': request.user.profile.id,
             'category': request.data.get('category'), 
+            'message': request.data.get('message'), 
+            'data_type': request.data.get('data_type'), 
             'sections': request.data.get('sections'), 
         }
         serializer = PostGroupSerializers(instance = group_instance, data=data, partial = True)

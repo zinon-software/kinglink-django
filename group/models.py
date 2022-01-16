@@ -8,11 +8,17 @@ User = get_user_model()
 
 # Create your models here.
 
+TYPE = [ 
+    ('POST','POST'),
+    ('GROUP','GROUP'),
+]
 
 class Group(models.Model):
     created_by = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE, related_name='created_by_user')
     titel = models.CharField(max_length=100, null=True, blank=True)
-    link = models.CharField(max_length=170)
+    link = models.CharField(max_length=170, null=True, blank=True)
+    message = models.TextField(null=True, blank=True)
+    data_type = models.CharField(max_length=6,choices=TYPE, null=True, blank=True)
     activation = models.BooleanField(default=False, null=True, blank=True)
     created_dt = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey(Category, default=1, null=True, blank=True, related_name='Category_by', on_delete=models.CASCADE)
