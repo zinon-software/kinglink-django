@@ -65,6 +65,21 @@ class MyGroupListApiView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class GroupListApiView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def get(self, request, *args, **kwargs):
+        group_list = Group.objects.filter(data_type='GROUP')
+        serializer = GroupSerializers(group_list, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class PostListApiView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def get(self, request, *args, **kwargs):
+        group_list = Group.objects.filter(data_type='POST')
+        serializer = GroupSerializers(group_list, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class GroupDetailApiView(APIView):
     # add permission to check if user is authenticated
     permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]

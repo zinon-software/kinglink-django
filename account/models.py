@@ -72,6 +72,14 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
         Profile.objects.create(user=instance)
+		
+		# متابعة الادمن
+        current_user = instance
+        other_user = Account.objects.get(pk=1)
+        current_user.profile.follows.add(other_user)
+        other_user.profile.followers.add(current_user)
+
+
 
 
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
